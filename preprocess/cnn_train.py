@@ -33,8 +33,8 @@ class CNNTrainModel(object):
         model = self.train_model(X_train, Y_train)
         self.model_eval(model, X_test, Y_test)
 
-
-    def load_index_label_mapping(self):
+    @staticmethod
+    def load_index_label_mapping():
         with open('./index_label_mapping.json', 'r') as f:
             index_label_mapping = json.load(f)
         return index_label_mapping
@@ -98,5 +98,6 @@ class CNNTrainModel(object):
         scores = model.evaluate(X, Y, verbose=1)
         print('Test loss: {} / Test accuracy: {}'.format(scores[0], scores[1]))
 
-train_model = CNNTrainModel()
-train_model.run()
+if __name__ == "__main__":
+    train_model = CNNTrainModel()
+    train_model.run()

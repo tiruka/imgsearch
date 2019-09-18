@@ -78,5 +78,6 @@ class AmplifyData(object):
         yield image.transpose(Image.FLIP_LEFT_RIGHT)
         yield image.transpose(Image.FLIP_TOP_BOTTOM)
 
-LI = LoadImage()
-LI.run()
+if __name__ == "__main__":
+    LI = LoadImage()
+    LI.run()
