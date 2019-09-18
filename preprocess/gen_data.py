@@ -6,17 +6,16 @@ import numpy as np
 from sklearn import model_selection
 from PIL import Image
 
-IMAGE_SIZE = 50
 DATA_DIR = 'data/img'
 img_dir = os.listdir(DATA_DIR)
 r = img_dir[0]
 
 
 class LoadImage(object):
+    IMAGE_SIZE = 50
 
     def __init__(self):
         self.DATA_DIR = 'data/img'
-        self.IMAGE_SIZE = 50
 
     def run(self):
         img_dir = self.list_img_dir()
@@ -42,13 +41,18 @@ class LoadImage(object):
         amplified_images = []
         for fp in images:
             image = Image.open(fp)
-            image = image.convert('RGB')
-            image = image.resize((self.IMAGE_SIZE, self.IMAGE_SIZE))
+            image = __class__.convert_resize_image(image)
             amplified_images.append(image)
             for i in itertools.chain(AmplifyData.rotate_image_data(image), AmplifyData.transpose_image_data(image)):
                 amplified_images.append(i)
         for img in amplified_images:
             yield np.asarray(img)
+
+    @classmethod
+    def convert_resize_image(cls, image):
+        image = image.convert('RGB')
+        image = image.resize((cls.IMAGE_SIZE, cls.IMAGE_SIZE))
+        return image
 
     def generate_cross_validation_data(self, X, Y):
         X_train, X_test, Y_train, Y_test = model_selection.train_test_split(

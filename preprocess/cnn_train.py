@@ -21,16 +21,16 @@ class CNNTrainModel(object):
         self.model_name = './img_keras_cnn.h5'
 
     def run(self):
-        index_label_mapping = self.load_index_label_mapping()
+        self.update_label_num()
         X_train, X_test, Y_train, Y_test = self.load_npy()
+
         X_train = self.normalize_data(X_train)
         X_test = self.normalize_data(X_test)
         
-        self.num_label = len(index_label_mapping)
         Y_train = self.convert_one_hot_vector(Y_train)
         Y_test = self.convert_one_hot_vector(Y_test)
 
-        model = self.model_train(X_train, Y_train)
+        model = self.train_model(X_train, Y_train)
         self.model_eval(model, X_test, Y_test)
 
 
@@ -49,11 +49,15 @@ class CNNTrainModel(object):
     def convert_one_hot_vector(self, label_data):
         return np_utils.to_categorical(label_data, self.num_label)
 
-    def model_train(self, X_train, Y_train):
+    def update_label_num(self):
+        index_label_mapping = self.load_index_label_mapping()
+        self.num_label = len(index_label_mapping)
+
+    def build_model(self, X, Y):
         model = Sequential()
         # 1st layer
         model.add(Conv2D(32, (3, 3), padding='same', 
-                        input_shape=X_train.shape[1:]))
+                        input_shape=X.shape[1:]))
         model.add(Activation('relu'))
         # 2nd layer
         model.add(Conv2D(32, (3, 3)))
@@ -80,7 +84,11 @@ class CNNTrainModel(object):
         model.compile(loss='categorical_crossentropy',
               optimizer=opt,
               metrics=['accuracy'])
-        model.fit(X_train, Y_train,
+        return model
+
+    def train_model(self, X, Y):
+        model = self.build_model(X, Y)
+        model.fit(X, Y,
             batch_size=self.batch_size,
             epochs=self.epochs)
         model.save(self.model_name)
