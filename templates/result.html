@@ -2,10 +2,17 @@
 {% block content %}
   <div>Image Search Result</div>
   {% if original_img_url %}
-  <div>Your Uploaded Image<img src="{{ original_img_url }}"></div>
+  <div>
+    Your Uploaded Image
+    <img src="{{ original_img_url }}" alt="Uploaded Image">
+  </div>
   {% endif %}
   {% if predicted_img_url %}
-  <div>Did you search?<img src="{{ predicted_img_url }}"></div>
+  <div>
+    Did you search?
+    <img src="{{ predicted_img_url }}" alt="Predicted Image">
+    <p>Accuracy {{ percentage }}%</p>
+  </div>
   {% else %}
   <div>Sorry, Not Found</div>
   {% endif %}
