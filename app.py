@@ -10,7 +10,7 @@ from preprocess.gen_data import LoadImage
 
 UPLOAD_FOLDER = './uploads'
 ORIGINAL_IMAGE_FOLDER = './preprocess/data/img'
-ALLOWED_EXTENSIONS = set(['png', 'jpg', 'gif'])
+ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg'])
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
