@@ -3,16 +3,22 @@ from flask import Flask, flash, request, redirect, url_for, render_template, sen
 from werkzeug.utils import secure_filename
 
 from keras.models import Sequential, load_model
-import keras,sys
+import keras
+import sys
 import numpy as np
 from PIL import Image
 
+from preprocess.predict import PredictImage
+from preprocess.gen_data import LoadImage
+
 UPLOAD_FOLDER = './uploads'
+ORIGINAL_IMAGE_FOLDER = './preprocess/data/img'
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'gif'])
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['SECRET_KEY'] = os.urandom(24)
+
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.',1)[1].lower() in ALLOWED_EXTENSIONS
@@ -31,8 +37,14 @@ def upload_file():
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-            return render_template('result.html', original_img_url=filepath)
-            # model = load_model('./cnn_aug.h5')
+            image_name, percentage = PredictImage(Image.open(filepath)).print_result()
+            print(image_name, percentage)
+            predicted_img_url = os.path.join(ORIGINAL_IMAGE_FOLDER, image_name)
+            return render_template('result.html',
+                                    original_img_url=filepath,
+                                    predicted_img_url=predicted_img_url,
+                                    percentage=percentage,)
+           
 
             # image = Image.open(filepath)
             # image = image.convert('RGB')

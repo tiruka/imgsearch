@@ -1,8 +1,8 @@
 import sys
 from keras.models import load_model as keras_load_model
 from PIL import Image
-from gen_data import LoadImage
-from cnn_train import CNNTrainModel
+from preprocess.gen_data import LoadImage
+from preprocess.cnn_train import CNNTrainModel
 import numpy as np
 
 
@@ -29,6 +29,7 @@ class PredictImage(object):
         percentage = int(result[predicted_index] * 100)
         image_name = index_label_mapping.get(str(predicted_index))
         print("Image Name: {0} Accuracy: {1} %".format(image_name, percentage))
+        return image_name, percentage
 
 if __name__ == "__main__":
     image = Image.open(sys.argv[1])

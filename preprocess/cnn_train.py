@@ -98,6 +98,3 @@ class CNNTrainModel(object):
         scores = model.evaluate(X, Y, verbose=1)
         print('Test loss: {} / Test accuracy: {}'.format(scores[0], scores[1]))
 
-if __name__ == "__main__":
-    train_model = CNNTrainModel()
-    train_model.run()

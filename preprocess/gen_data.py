@@ -6,16 +6,12 @@ import numpy as np
 from sklearn import model_selection
 from PIL import Image
 
-DATA_DIR = 'data/img'
-img_dir = os.listdir(DATA_DIR)
-r = img_dir[0]
-
 
 class LoadImage(object):
     IMAGE_SIZE = 50
 
     def __init__(self):
-        self.DATA_DIR = 'data/img'
+        self.DATA_DIR = 'preprocess/data/img'
 
     def run(self):
         img_dir = self.list_img_dir()
@@ -77,7 +73,3 @@ class AmplifyData(object):
     def transpose_image_data(cls, image):
         yield image.transpose(Image.FLIP_LEFT_RIGHT)
         yield image.transpose(Image.FLIP_TOP_BOTTOM)
-
-if __name__ == "__main__":
-    LI = LoadImage()
-    LI.run()

@@ -3,6 +3,11 @@
   <div>Image Search Result</div>
   {% if original_img_url %}
   <div>Your Uploaded Image<img src="{{ original_img_url }}"></div>
-  <div>Did you search?<img src="{{ original_img_url }}"></div>
   {% endif %}
+  {% if predicted_img_url %}
+  <div>Did you search?<img src="{{ predicted_img_url }}"></div>
+  {% else %}
+  <div>Sorry, Not Found</div>
+  {% endif %}
+<a href="/">Back</a>
 {% endblock %}
