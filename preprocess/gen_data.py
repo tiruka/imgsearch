@@ -2,10 +2,13 @@ import os
 import glob
 import json
 import itertools
+import logging
 import numpy as np
 from sklearn import model_selection
 from PIL import Image
 
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 
 class LoadImage(object):
@@ -22,12 +25,14 @@ class LoadImage(object):
         label = []
         index_label_mapping = {}
         for index, img_name in enumerate(img_dir):
+            logger.info(f'index:{index}\t{img_name}')
             fp = os.path.join(self.data_dir, img_name, "*.jpg")
             images = glob.glob(fp)
             index_label_mapping.setdefault(index, img_name)
             for np_data in self.image_convert_to_np(images):
                 label.append(index)
                 data.append(np_data)
+        logger.info('Transform data into numpy array')
         data = np.array(data)
         label = np.array(label)
         self.generate_cross_validation_data(data, label)
@@ -54,12 +59,15 @@ class LoadImage(object):
         return image
 
     def generate_cross_validation_data(self, X, Y):
+        logger.info('generate_cross_validation_data')
         X_train, X_test, Y_train, Y_test = model_selection.train_test_split(
                                             X, Y, test_size=0.33, random_state=42)
         xy = (X_train, X_test, Y_train, Y_test)
+        logger.info('save_cross_validation_data')
         np.save(self.np_data, xy)
 
     def dump_index_label_mapping(self, dic):
+        logger.info('index_label_mapping.json creating')
         with open(self.mapping_json, 'w') as f:
             json.dump(dic, f)
 
@@ -68,7 +76,7 @@ class AmplifyData(object):
 
     @classmethod
     def rotate_image_data(cls, image):
-        for angle in range(-90, 90 + 1, 10):
+        for angle in range(-90, 90 + 1, 30):
             rotated_img = image.rotate(angle)
             yield rotated_img
 

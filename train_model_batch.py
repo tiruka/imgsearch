@@ -10,5 +10,5 @@ from settings import (
 if __name__ == "__main__":
     LI = LoadImage(DATA_DIRECTORY, NP_DATA, MAPPING_JSON)
     LI.run()
-    train_model = CNNTrainModel(MODEL_PATH, MAPPING_JSON, NP_DATA)
+    train_model = CNNTrainModel(MODEL_PATH, MAPPING_JSON, NP_DATA, batch_size=32, epochs=10)
     train_model.run()
