@@ -35,9 +35,16 @@ class PredictImage(object):
         index_label_mapping = CNNTrainModel.load_index_label_mapping(self.mapping_json)
         result = self.predict()[0]
         predicted_index = result.argmax()
-        percentage = int(result[predicted_index] * 100)
+        percentage = float(result[predicted_index] * 100)
         image_name = index_label_mapping.get(str(predicted_index))
         if local:
             print("Image Name: {0} Accuracy: {1} %".format(image_name, percentage))
         return image_name, percentage
 
+    def print_results(self, num=1, local=False):
+        index_label_mapping = CNNTrainModel.load_index_label_mapping(self.mapping_json)
+        result = self.predict()[0]
+        predicted_index_list = result.argsort()[-num:][::-1]
+        percentages = [float(result[i] * 100) for i in predicted_index_list]
+        image_name_list = [index_label_mapping.get(str(i)) for i in predicted_index_list]
+        return image_name_list, percentages
