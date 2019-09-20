@@ -9,3 +9,4 @@ soupsieve==1.9.3
 tensorboard==1.14.0
 tensorflow==1.14.0
 Flask==1.1.1
+Keras==2.2.5
