@@ -1,20 +1,32 @@
 {% extends "base.html" %}
 {% block content %}
-  <div>Image Search Result</div>
-  {% if original_img_url %}
-  <div>
-    Your Uploaded Image
-    <img src="{{ original_img_url }}" alt="Uploaded Image">
-  </div>
-  {% endif %}
-  {% if predicted_img_url %}
-  <div>
-    Did you search?
-    <img src="{{ predicted_img_url }}" alt="Predicted Image">
-    <p>Accuracy {{ percentage }}%</p>
-  </div>
-  {% else %}
-  <div>Sorry, Not Found</div>
-  {% endif %}
-<a href="/">Back</a>
+<h1 class="ui center aligned header" style="padding-top:1em">Image Search Result</h1>
+<div class="ui centered cards" style="padding:30px">
+    <div class="ui card">
+        {% if original_img_url %}
+        <div class="image"><img src="{{ original_img_url }}" /></div>
+        {% else %}
+          <div>Error while uploading</div>
+        {% endif %}
+        <div class="content">
+        <div class="header">Uploaded</div>
+        </div>
+    </div>
+    <div class="ui card">
+        {% if predicted_img_url %}
+          <div class="image"><img src="{{ predicted_img_url }}" /></div>
+        {% else %}
+          <div>Sorry, Not Found</div>
+        {% endif %}
+        <div class="content">
+        <div class="header">Predicted Accuracy: {{ percentage }}%</div>
+        <div class="description">
+            ItemName: {{ image_name }}
+        </div>
+        </div>
+    </div>
+</div>
+<div class="ui center aligned container">
+    <a href="/" class="ui button">Back</a>
+</div>
 {% endblock %}

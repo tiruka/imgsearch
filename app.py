@@ -47,6 +47,7 @@ def upload_file():
             return render_template('result.html',
                                     original_img_url=filepath,
                                     predicted_img_url=predicted_img_url,
+                                    image_name=image_name,
                                     percentage=percentage,)
 
     return render_template('index.html')

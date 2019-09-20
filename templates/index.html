@@ -1,29 +1,19 @@
 {% extends "base.html" %}
 {% block content %}
 
+<h1 class="ui center aligned header" style="padding:1em">Upload and Search Image!</h1>
 <div class="ui center aligned container">
-  <h2 class="ui header">Upload and Search Image!</h2>
   <p>
     <form class="ui form" method="post" enctype="multipart/form-data">
       <div class="ui action input">
-          <input type="text" placeholder="File 1" readonly />
+          <input type="text" placeholder="Please upload image (jpg, png, jpeg)" readonly />
           <input type="file" name="file" />
           <button type="submit" class="ui button">Search</button>
         </div>
     </form>
   </p>
-  <p>
-    Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.
-    Aenean massa strong. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur
-    ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla
-    consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.
-    In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede link
-    mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate
-    eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam
-    lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius
-    laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper
-    ultricies nisi.
-  </p>
+  <p>Backend: Keras</p>
+  <p>API: Flask</p>
 </div>
 <script>
     $("input:text").click(function() {
@@ -34,6 +24,5 @@
         var name = e.target.files[0].name;
         $('input:text', $(e.target).parent()).val(name);
     });
-    
 </script>
 {% endblock %}
