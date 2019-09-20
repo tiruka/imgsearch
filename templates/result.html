@@ -2,9 +2,21 @@
 {% block content %}
 <h1 class="ui center aligned header" style="padding-top:1em">Image Search Result</h1>
 <div class="ui centered cards" style="padding:30px">
+<div class="ui card">
+    {% if original_img_url %}
+    <div class="image"><img class="ui fluid image" src="{{ original_img_url }}" /></div>
+    {% else %}
+      <div>Error while uploading</div>
+    {% endif %}
+    <div class="content">
+    <div class="header">Uploaded</div>
+    </div>
+</div>
+</div>
+<div class="ui centered cards" style="padding:30px">
     <div class="ui card">
         {% if original_img_url %}
-        <div class="image"><img src="{{ original_img_url }}" /></div>
+        <div class="image"><img class="ui fluid image" src="{{ original_img_url }}" /></div>
         {% else %}
           <div>Error while uploading</div>
         {% endif %}
@@ -14,7 +26,7 @@
     </div>
     <div class="ui card">
         {% if predicted_img_url %}
-          <div class="image"><img src="{{ predicted_img_url }}" /></div>
+          <div class="image"><img class="ui fluid image" src="{{ predicted_img_url }}" /></div>
         {% else %}
           <div>Sorry, Not Found</div>
         {% endif %}
@@ -26,7 +38,7 @@
         </div>
     </div>
 </div>
-<div class="ui center aligned container">
+<div class="ui center aligned container" style="padding-bottom:30px">
     <a href="/" class="ui button">Back</a>
 </div>
 {% endblock %}
