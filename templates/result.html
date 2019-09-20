@@ -1,29 +1,23 @@
 {% extends "base.html" %}
 {% block content %}
 <h1 class="ui center aligned header" style="padding-top:1em">Image Search Result</h1>
-<div class="ui centered cards" style="padding:30px">
-<div class="ui card">
-    {% if original_img_url %}
-    <div class="image"><img class="ui fluid image" src="{{ original_img_url }}" /></div>
-    {% else %}
-      <div>Error while uploading</div>
-    {% endif %}
-    <div class="content">
-    <div class="header">Uploaded</div>
-    </div>
+<div class="ui centered cards" style="padding:20px">
+  <div class="ui card">
+      {% if original_img_url %}
+      <div class="image"><img class="ui fluid image" src="{{ original_img_url }}" /></div>
+      {% else %}
+        <div>Error while uploading</div>
+      {% endif %}
+      <div class="content">
+      <div class="header center aligned">Uploaded Image</div>
+      </div>
+  </div>
 </div>
+<div class="ui horizontal divider">
+    <h2>Did you search?</h2>
 </div>
-<div class="ui centered cards" style="padding:30px">
-    <div class="ui card">
-        {% if original_img_url %}
-        <div class="image"><img class="ui fluid image" src="{{ original_img_url }}" /></div>
-        {% else %}
-          <div>Error while uploading</div>
-        {% endif %}
-        <div class="content">
-        <div class="header">Uploaded</div>
-        </div>
-    </div>
+<div class="ui centered cards" style="padding:20px">
+    {% for predicted_img_url, image_name, percentage in predicted_img_data_set %}
     <div class="ui card">
         {% if predicted_img_url %}
           <div class="image"><img class="ui fluid image" src="{{ predicted_img_url }}" /></div>
@@ -31,12 +25,13 @@
           <div>Sorry, Not Found</div>
         {% endif %}
         <div class="content">
-        <div class="header">Predicted Accuracy: {{ percentage }}%</div>
-        <div class="description">
-            ItemName: {{ image_name }}
-        </div>
+          <div class="header">
+              ItemName: {{ image_name }}
+          </div>
+        <div class="description">Predicted Accuracy: {{ percentage }}%</div>
         </div>
     </div>
+    {% endfor %}
 </div>
 <div class="ui center aligned container" style="padding-bottom:30px">
     <a href="/" class="ui button">Back</a>

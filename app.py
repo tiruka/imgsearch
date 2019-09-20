@@ -42,13 +42,12 @@ def upload_file():
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-            image_name, percentage = PredictImage(Image.open(filepath), MODEL_PATH, MAPPING_JSON).print_result()
-            predicted_img_url = ret_predicted_img_url(image_name)
+            image_name_list, percentages = PredictImage(Image.open(filepath), MODEL_PATH, MAPPING_JSON).print_results(num=4)
+            predicted_img_url_list = [ret_predicted_img_url(i) for i in image_name_list]
+            predicted_img_data_set = [tupled_data for tupled_data in zip(predicted_img_url_list, image_name_list, percentages)]
             return render_template('result.html',
                                     original_img_url=filepath,
-                                    predicted_img_url=predicted_img_url,
-                                    image_name=image_name,
-                                    percentage=percentage,)
+                                    predicted_img_data_set=predicted_img_data_set,)
 
     return render_template('index.html')
 
