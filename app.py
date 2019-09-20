@@ -7,9 +7,13 @@ from werkzeug.utils import secure_filename
 
 from preprocess.predict import PredictImage
 from preprocess.gen_data import LoadImage
+from settings import (
+    MODEL_PATH,
+    MAPPING_JSON,
+    DATA_DIRECTORY
+)
 
-UPLOAD_FOLDER = './uploads'
-ORIGINAL_IMAGE_FOLDER = './preprocess/data/img'
+UPLOAD_FOLDER = './static/uploads'
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg'])
 
 app = Flask(__name__)
@@ -21,7 +25,7 @@ def allowed_file(filename):
     return '.' in filename and filename.rsplit('.',1)[1].lower() in ALLOWED_EXTENSIONS
 
 def ret_predicted_img_url(image_name):
-    fp = os.path.join(ORIGINAL_IMAGE_FOLDER, image_name, '*.jpg')
+    fp = os.path.join(DATA_DIRECTORY, image_name, '*.jpg')
     files = glob.glob(fp)
     return sorted(files)[0]
 
@@ -39,7 +43,7 @@ def upload_file():
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-            image_name, percentage = PredictImage(Image.open(filepath)).print_result()
+            image_name, percentage = PredictImage(Image.open(filepath), MODEL_PATH, MAPPING_JSON).print_result()
             predicted_img_url = ret_predicted_img_url(image_name)
             return render_template('result.html',
                                     original_img_url=filepath,
@@ -48,9 +52,6 @@ def upload_file():
 
     return render_template('index.html')
 
-@app.route('/result')
-def result(filepath):
-    return render_template('result.html', img_url=filepath)
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True, host='0.0.0.0', port=80)

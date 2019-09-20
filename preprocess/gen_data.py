@@ -7,11 +7,14 @@ from sklearn import model_selection
 from PIL import Image
 
 
+
 class LoadImage(object):
     IMAGE_SIZE = 50
 
-    def __init__(self):
-        self.DATA_DIR = 'preprocess/data/img'
+    def __init__(self, data_dir, np_data, mapping_json):
+        self.data_dir = data_dir
+        self.np_data = np_data
+        self.mapping_json = mapping_json
 
     def run(self):
         img_dir = self.list_img_dir()
@@ -19,7 +22,7 @@ class LoadImage(object):
         label = []
         index_label_mapping = {}
         for index, img_name in enumerate(img_dir):
-            fp = os.path.join(self.DATA_DIR, img_name, "*.jpg")
+            fp = os.path.join(self.data_dir, img_name, "*.jpg")
             images = glob.glob(fp)
             index_label_mapping.setdefault(index, img_name)
             for np_data in self.image_convert_to_np(images):
@@ -31,7 +34,7 @@ class LoadImage(object):
         self.dump_index_label_mapping(index_label_mapping)
 
     def list_img_dir(self):
-        return os.listdir(self.DATA_DIR)
+        return os.listdir(self.data_dir)
 
     def image_convert_to_np(self, images):
         amplified_images = []
@@ -54,10 +57,10 @@ class LoadImage(object):
         X_train, X_test, Y_train, Y_test = model_selection.train_test_split(
                                             X, Y, test_size=0.33, random_state=42)
         xy = (X_train, X_test, Y_train, Y_test)
-        np.save('./np_data.npy', xy)
+        np.save(self.np_data, xy)
 
     def dump_index_label_mapping(self, dic):
-        with open('./index_label_mapping.json', 'w') as f:
+        with open(self.mapping_json, 'w') as f:
             json.dump(dic, f)
 
 

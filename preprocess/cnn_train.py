@@ -14,11 +14,13 @@ import numpy as np
 
 class CNNTrainModel(object):
 
-    def __init__(self, batch_size=32, epochs=100):
+    def __init__(self, model_name, mapping_json, np_data, batch_size=32, epochs=100,):
         self.num_label = None
+        self.model_name = model_name
+        self.mapping_json = mapping_json
+        self.np_data = np_data
         self.batch_size = batch_size
         self.epochs = epochs
-        self.model_name = './img_keras_cnn.h5'
 
     def run(self):
         self.update_label_num()
@@ -34,13 +36,13 @@ class CNNTrainModel(object):
         self.model_eval(model, X_test, Y_test)
 
     @staticmethod
-    def load_index_label_mapping():
-        with open('./index_label_mapping.json', 'r') as f:
+    def load_index_label_mapping(fp):
+        with open(fp, 'r') as f:
             index_label_mapping = json.load(f)
         return index_label_mapping
 
     def load_npy(self):
-        X_train, X_test, Y_train, Y_test = np.load('./np_data.npy')
+        X_train, X_test, Y_train, Y_test = np.load(self.np_data)
         return X_train, X_test, Y_train, Y_test
 
     def normalize_data(self, np_data):
@@ -50,7 +52,7 @@ class CNNTrainModel(object):
         return np_utils.to_categorical(label_data, self.num_label)
 
     def update_label_num(self):
-        index_label_mapping = self.load_index_label_mapping()
+        index_label_mapping = self.load_index_label_mapping(self.mapping_json)
         self.num_label = len(index_label_mapping)
 
     def build_model(self, X, Y):
