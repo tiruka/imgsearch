@@ -10,11 +10,10 @@ from preprocess.gen_data import LoadImage
 from settings import (
     MODEL_PATH,
     MAPPING_JSON,
-    DATA_DIRECTORY
+    DATA_DIRECTORY,
+    UPLOAD_FOLDER,
+    ALLOWED_EXTENSIONS,
 )
-
-UPLOAD_FOLDER = './static/uploads'
-ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg'])
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
