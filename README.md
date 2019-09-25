@@ -1,4 +1,8 @@
-# Introduction of DeepLearning Image Search
+# Introduction of Deep Learning Image Search
+
+You can try to search items by uploading an image file.
+
+![Demo](https://github.com/tiruka/files/blob/master/imgsearch/imageserach_demo.gif)
 
 ## MiddleWare
 
