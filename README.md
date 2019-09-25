@@ -5,12 +5,67 @@
 Backend: Keras
 API: Flask
 
+## Whole directory
+
+```shell
+imgsearch
+├── README.md
+├── app
+│   ├── Dockerfile
+│   ├── app.py
+│   ├── etc
+│   │   └── requirements.pip
+│   ├── img_keras_cnn.h5
+│   ├── index_label_mapping.json
+│   ├── np_data.npy
+│   ├── predict_img.py
+│   ├── preprocess
+│   │   ├── __init__.py
+│   │   ├── cnn_train.py
+│   │   ├── gen_data.py
+│   │   └── predict.py
+│   ├── settings.py
+│   ├── static
+│   │   ├── background
+│   │   │   └── backgroundimage.jpeg
+│   │   ├── css
+│   │   │   └── style.css
+│   │   ├── data
+│   │   │   └── img
+│   │   └── uploads
+│   ├── templates
+│   │   ├── base.html
+│   │   ├── index.html
+│   │   └── result.html
+│   ├── train_model_batch.py
+│   └── uwsgi.ini
+├── docker-compose.yml
+└── nginx
+    ├── Dockerfile
+    └── nginx.conf
+```
+
 ## How to build model
 
 ### Deploy data
 
 You should deploy data to make Keras to learn and build model.
 In this application, you put directories including images (*.jpg) on `imgsearch/app/static/data/img`.
+
+```shell
+img
+├── item1
+│   ├── item1_1.jpg
+│   ├── item1_2.jpg
+│   └── item1_3.jpg
+└── item2
+│   ├── item2_1.jpg
+│   ├── item2_2.jpg
+│   ├── item2_3.jpg
+│   └── item2_4.jpg
+│
+...
+```
 
 ### Build model
 
