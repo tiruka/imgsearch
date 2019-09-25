@@ -2,7 +2,7 @@
 
 You can try to search items by uploading an image file.
 
-![Demo](https://github.com/tiruka/files/blob/master/imgsearch/imageserach_demo.gif)
+![Demo](https://raw.githubusercontent.com/tiruka/files/master/imgsearch/imageserach_demo.gif)
 
 ## MiddleWare
 
