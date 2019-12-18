@@ -13,40 +13,46 @@ API: Flask
 
 ```shell
 imgsearch
-├── README.md
-├── app
-│   ├── Dockerfile
-│   ├── app.py
-│   ├── etc
-│   │   └── requirements.pip
-│   ├── img_keras_cnn.h5
-│   ├── index_label_mapping.json
-│   ├── np_data.npy
-│   ├── predict_img.py
-│   ├── preprocess
-│   │   ├── __init__.py
-│   │   ├── cnn_train.py
-│   │   ├── gen_data.py
-│   │   └── predict.py
-│   ├── settings.py
-│   ├── static
-│   │   ├── background
-│   │   │   └── backgroundimage.jpeg
-│   │   ├── css
-│   │   │   └── style.css
-│   │   ├── data
-│   │   │   └── img
-│   │   └── uploads
-│   ├── templates
-│   │   ├── base.html
-│   │   ├── index.html
-│   │   └── result.html
-│   ├── train_model_batch.py
-│   └── uwsgi.ini
-├── docker-compose.yml
-└── nginx
-    ├── Dockerfile
-    └── nginx.conf
+|-- README.md
+|-- app
+|   |-- Dockerfile
+|   |-- app.py
+|   |-- augment_image.py
+|   |-- convertimagenumpy.py
+|   |-- etc
+|   |   `-- requirements.pip
+|   |-- predict_img.py
+|   |-- preprocess
+|   |   |-- __init__.py
+|   |   |-- __pycache__
+|   |   |   |-- __init__.cpython-36.pyc
+|   |   |   |-- cnn_model.cpython-36.pyc
+|   |   |   |-- cnn_train.cpython-36.pyc
+|   |   |   |-- gen_data.cpython-36.pyc
+|   |   |   `-- predict.cpython-36.pyc
+|   |   |-- cnn_model.py
+|   |   |-- cnn_train.py
+|   |   |-- gen_data.py
+|   |   `-- predict.py
+|   |-- settings.py
+|   |-- static
+|   |   |-- background
+|   |   |   `-- sky.png
+|   |   |-- css
+|   |   |   `-- style.css
+|   |   |-- data
+|   |   |   `-- img
+|   |   `-- uploads
+|   |-- templates
+|   |   |-- base.html
+|   |   |-- index.html
+|   |   `-- result.html
+|   |-- train_model.py
+|   `-- uwsgi.ini
+|-- docker-compose.yml
+`-- nginx
+    |-- Dockerfile
+    `-- nginx.conf
 ```
 
 ## How to build model

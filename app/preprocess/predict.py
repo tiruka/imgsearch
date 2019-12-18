@@ -1,7 +1,6 @@
 import sys
 import logging
 from keras.models import load_model as keras_load_model
-from keras import backend as keras_backend
 import tensorflow as tf
 from PIL import Image
 from preprocess.gen_data import LoadImage
@@ -28,7 +27,6 @@ class PredictImage(object):
         np_data = np.asarray(converted_image) / 255
         X = np.array([np_data])
         result = model.predict(X)
-        keras_backend.clear_session()
         return result
 
     def print_result(self, local=False):

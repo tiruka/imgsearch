@@ -1,20 +1,20 @@
 import json
-import keras
-from keras.models import Sequential
-from keras.layers import (
-    Conv2D,
-    MaxPooling2D,
-    Activation,
-    Dropout,
-    Flatten,
-    Dense
-)
+import logging
+
 from keras.utils import np_utils
 import numpy as np
 
-class CNNTrainModel(object):
+from preprocess.cnn_model import (
+    CNNCifar10,
+    CNNVGG16,
+)
 
-    def __init__(self, model_name, mapping_json, np_data, batch_size=32, epochs=100,):
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+class CNNTrainModel(CNNVGG16):
+
+    def __init__(self, model_name, mapping_json, np_data, batch_size=64, epochs=100,):
         self.num_label = None
         self.model_name = model_name
         self.mapping_json = mapping_json
@@ -24,15 +24,20 @@ class CNNTrainModel(object):
 
     def run(self):
         self.update_label_num()
+        logger.info('Load Numpy Data')
         X_train, X_test, Y_train, Y_test = self.load_npy()
 
+        logger.info('Normalizing Data')
         X_train = self.normalize_data(X_train)
         X_test = self.normalize_data(X_test)
         
+        logger.info('Convert to One Hot Vector')
         Y_train = self.convert_one_hot_vector(Y_train)
         Y_test = self.convert_one_hot_vector(Y_test)
 
+        logger.info('Model Training')
         model = self.train_model(X_train, Y_train)
+        logger.info('Model Evaluation')
         self.model_eval(model, X_test, Y_test)
 
     @staticmethod
@@ -54,39 +59,6 @@ class CNNTrainModel(object):
     def update_label_num(self):
         index_label_mapping = self.load_index_label_mapping(self.mapping_json)
         self.num_label = len(index_label_mapping)
-
-    def build_model(self, X, Y):
-        model = Sequential()
-        # 1st layer
-        model.add(Conv2D(32, (3, 3), padding='same', 
-                        input_shape=X.shape[1:]))
-        model.add(Activation('relu'))
-        # 2nd layer
-        model.add(Conv2D(32, (3, 3)))
-        model.add(Activation('relu'))
-        model.add(MaxPooling2D(pool_size=(2, 2)))
-        model.add(Dropout(0.25))
-
-        # 3rd layer
-        model.add(Conv2D(64, (3, 3), padding='same'))
-        model.add(Activation('relu'))
-        model.add(Conv2D(64, (3, 3)))
-        model.add(Activation('relu'))
-        model.add(MaxPooling2D(pool_size=(2, 2)))
-        model.add(Dropout(0.25))
-
-        model.add(Flatten())
-        model.add(Dense(512))
-        model.add(Activation('relu'))
-        model.add(Dropout(0.5))
-        model.add(Dense(self.num_label))
-        model.add(Activation('softmax'))
-
-        opt = keras.optimizers.RMSprop(lr=1e-5, decay=1e-6)
-        model.compile(loss='categorical_crossentropy',
-              optimizer=opt,
-              metrics=['accuracy'])
-        return model
 
     def train_model(self, X, Y):
         model = self.build_model(X, Y)
