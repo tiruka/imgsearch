@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block content %}
+<h1 class="ui center aligned header" style="padding:1em"><span style="color:white"><em>Upload and Search Image!</em></span></h1>
+<div class="ui center aligned container">
+  <div class="ui divider"></div>
+  <p><span style="color:white"><em>Backend: Keras</em></span></p>
+  <p><span style="color:white"><em>API: Flask</em></span></p>
+  {% for name, img_url in rows %}
+    <div class="ui card">
+      {% if img_url %}
+        <div class="image"><img class="ui fluid image" src="{{ img_url }}" /></div>
+      {% else %}
+        <div>Sorry, Not Found</div>
+      {% endif %}
+      <div class="content">
+        <div class="header">
+            ItemName: {{ name }}
+        </div>
+      <div class="description">Predicted Accuracy: {{ percentage }}%</div>
+    </div>
+</div>
+  {% endfor %}
+  {{ pagination.info }}
+  {{ pagination.links }}
+</div>
+<script>
+    $("input:text").click(function() {
+      $(this).parent().find("input:file").click();
+    });
+    $('input:file', '.ui.action.input')
+    .on('change', function(e) {
+        var name = e.target.files[0].name;
+        $('input:text', $(e.target).parent()).val(name);
+    });
+</script>
+{% endblock %}
