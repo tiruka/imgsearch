@@ -19,6 +19,8 @@ app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['SECRET_KEY'] = os.urandom(24)
 
+img_data_dirs = [i for i in os.listdir('static/data/img') if i not in ['.gitignore', '.DS_Store']]
+per_page = 3
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.',1)[1].lower() in ALLOWED_EXTENSIONS
@@ -32,14 +34,13 @@ def ret_predicted_img_url(image_name):
 def pic_view():
     if request.method == 'GET':
         page = request.args.get(get_page_parameter(), type=int, default=1)
-        results = os.listdir('static/data/img')
-        res = results[(page - 1) * 2: page * 2]
+        res = img_data_dirs[(page - 1) * per_page: page * per_page]
         name_image_set = []
         for r in res:
             img_url = glob.glob(os.path.join('static/data/img', r, '*'))
             if img_url:
                 name_image_set.append((r, img_url[0]))
-        pagination = Pagination(page=page, total=len(results),  per_page=10, css_framework='bootstrap4')
+        pagination = Pagination(page=page, total=len(img_data_dirs),  per_page=per_page, css_framework='semantic')
         return render_template('pagenation.html', rows=name_image_set, pagination=pagination)
 
 

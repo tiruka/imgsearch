@@ -5,6 +5,7 @@
   <div class="ui divider"></div>
   <p><span style="color:white"><em>Backend: Keras</em></span></p>
   <p><span style="color:white"><em>API: Flask</em></span></p>
+  <div class="ui centered cards" style="padding:20px">
   {% for name, img_url in rows %}
     <div class="ui card">
       {% if img_url %}
@@ -14,13 +15,13 @@
       {% endif %}
       <div class="content">
         <div class="header">
-            ItemName: {{ name }}
+          ItemName: {{ name }}
         </div>
-      <div class="description">Predicted Accuracy: {{ percentage }}%</div>
     </div>
 </div>
   {% endfor %}
-  {{ pagination.info }}
+  </div>
+  <!-- {{ pagination.info }} -->
   {{ pagination.links }}
 </div>
 <script>
