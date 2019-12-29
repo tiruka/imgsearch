@@ -7,7 +7,7 @@
     <p><span style="color:white"><em>API: Flask</em></span></p>
     <div class="ui centered cards" style="padding:20px">
     {% for name, img_url in rows %}
-      <div class="ui card" onclick="cardClick({name})">
+      <div class="ui card" onclick="cardClick('{{ name }}')">
         {% if img_url %}
           <div class="image"><img class="ui fluid image" src="{{ img_url }}" /></div>
         {% else %}
@@ -28,14 +28,14 @@
       <div class="image content">
         <img class="image">
         <div class="description">
-          <p>test</p>
+          <p id='item-name'>test</p>
         </div>
       </div>
     </div>
 <script type="text/javascript">
-  function cardClick(){
-    $('.fullscreen.modal').modal('show')
-  ;
+  function cardClick(name){
+    $('.fullscreen.modal').modal('show');
+    $('#item-name').html(name)
   }
 </script>
 {% endblock %}
