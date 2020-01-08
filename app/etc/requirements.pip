@@ -11,3 +11,4 @@ tensorflow==1.14.0
 Flask==1.1.1
 Keras==2.2.5
 uWSGI==2.0.18
+flask-paginate==0.5.5
