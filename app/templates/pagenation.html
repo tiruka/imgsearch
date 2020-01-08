@@ -6,8 +6,8 @@
     <p><span style="color:white"><em>Backend: Keras</em></span></p>
     <p><span style="color:white"><em>API: Flask</em></span></p>
     <div class="ui centered cards" style="padding:20px">
-    {% for name, img_url in rows %}
-      <div class="ui card" onclick="cardClick('{{ name }}')">
+    {% for name, img_url, recommends in rows %}
+      <div class="ui card" onclick="cardClick('{{ recommends }}')">
         {% if img_url %}
           <div class="image"><img class="ui fluid image" src="{{ img_url }}" /></div>
         {% else %}
@@ -33,9 +33,9 @@
       </div>
     </div>
 <script type="text/javascript">
-  function cardClick(name){
+  function cardClick(recommends){
     $('.fullscreen.modal').modal('show');
-    $('#item-name').html(name)
+    $('#item-name').html(recommends[0])
   }
 </script>
 {% endblock %}
