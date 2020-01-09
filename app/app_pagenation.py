@@ -39,7 +39,8 @@ def pic_view():
         for r in res:
             img_url = glob.glob(os.path.join('static/data/img', r, '*'))
             if img_url:
-                name_image_set.append((r, img_url[0], [1, 2, 3]))
+                recommends = [img_url[0], img_url[0], img_url[0]] # for debug
+                name_image_set.append((r, img_url[0], recommends))
         pagination = Pagination(page=page, total=len(img_data_dirs),  per_page=per_page, css_framework='semantic')
         return render_template('pagenation.html', rows=name_image_set, pagination=pagination)
 
