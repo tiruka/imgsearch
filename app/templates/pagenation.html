@@ -24,7 +24,9 @@
       <div class="image content">
         <img class="image">
         <div class="description">
-          <p id='item-name'>{{ recommends }}</p>
+          {% for recommend_img_url in recommends %}
+            <p id='item-name'>{{ recommend_img_url }}</p>
+          {% endfor %}
         </div>
       </div>
     </div>
