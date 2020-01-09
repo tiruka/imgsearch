@@ -13,24 +13,24 @@
         {% else %}
           <div>Sorry, Not Found</div>
         {% endif %}
-        <div class="content">
-          <div class="header">
-            ItemName: {{ name }}
-          </div>
-      </div>
-    </div>
-    <div class="ui fullscreen modal" id='{{name}}'>
-      <div class="header">Similar Items</div>
-      <div class="image content">
-        <img class="image">
-        <div class="description">
-          {% for recommend_img_url in recommends %}
-            <p id='item-name'>{{ recommend_img_url }}</p>
-          {% endfor %}
+      <div class="content">
+        <div class="header">
+          ItemName: {{ name }}
         </div>
       </div>
-    </div>
-    {% endfor %}
+      </div>
+      <div class="ui fullscreen modal" id='{{name}}'>
+        <div class="header">Similar Items</div>
+        <div class="image content">
+          <img class="image">
+          <div class="description">
+            {% for recommend_img_url in recommends %}
+              <p id='item-name'>{{ recommend_img_url }}</p>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+      {% endfor %}
     </div>
     <!-- {{ pagination.info }} -->
     {{ pagination.links }}
