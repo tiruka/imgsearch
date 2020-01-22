@@ -10,7 +10,7 @@ from keras.layers import (
     Flatten,
     Dense
 )
-from keras.applications.vgg16 import VGG16
+from keras.applications.vgg16 import VGG16, preprocess_input
 from keras.applications.vgg19 import VGG19
 
 class CNNBaseModel(ABC):
@@ -59,6 +59,8 @@ class CNNCifar10(CNNBaseModel):
               metrics=['accuracy'])
         return model
 
+    def normalize_data(self, np_data):
+        return np_data.astype(np.float128) / 255
 
 class CNNVGG16(CNNBaseModel):
     '''
@@ -83,3 +85,6 @@ class CNNVGG16(CNNBaseModel):
               optimizer=opt,
               metrics=['accuracy'])
         return model
+
+    def normalize_data(self, np_data):
+        return preprocess_input(np_data.astype(np.float128))

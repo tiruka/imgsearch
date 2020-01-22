@@ -1,53 +1,56 @@
 {% extends "base.html" %}
 {% block content %}
-<h1 class="ui center aligned header" style="padding:1em"><span style="color:white"><em>Upload and Search Image!</em></span></h1>
-<div class="ui center aligned container">
-  <div class="ui divider"></div>
-    <p><span style="color:white"><em>Backend: Keras</em></span></p>
-    <p><span style="color:white"><em>API: Flask</em></span></p>
-    <div class="ui centered cards" style="padding:20px">
-    {% for name, img_url, recommends in rows %}
-      <div class="ui card" onclick="cardClick('{{ name }}')">
-        {% if img_url %}
-          <div class="image"><img class="ui fluid image" src="{{ img_url }}" /></div>
-        {% else %}
-          <div>Sorry, Not Found</div>
-        {% endif %}
-      <div class="content">
-        <div class="header">
-          ItemName: {{ name }}
-        </div>
-      </div>
-      </div>
-      <div class="ui fullscreen modal" id='{{name}}'>
-        <div class="header">Similar Items</div>
-        <div class="image content">
-          <img class="image">
-          <div class="description">
-            <div class="ui centered cards" style="padding:20px">
-            {% for recommend_img_url in recommends %}
+<h1 class="ui center aligned header" style="padding:1em"><span style="color:black"><em>Recommends</em></span></h1>
+<div class="ui divider"></div>
+<div class="ui center aligned container" style="width:100%;overflow-x:scroll;">
+  <table class="ui celled table">
+    <thead>
+      <tr>
+        <th>Original</th>
+        <th>Similar Item1</th>
+        <th>Similar Item2</th>
+        <th>Similar Item3</th>
+        <th>Similar Item4</th>
+        <th>Similar Item5</th>
+        <th>Similar Item6</th>
+        <th>Similar Item7</th>
+        <th>Similar Item8</th>
+        <th>Similar Item9</th>
+        <th>Similar Item10</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        {% for name, img_url, recommends in rows %}
+          <td data-label="Name">
+            <div class="ui card">
+              <div class="ui small image centered"><img class="ui fluid image" src="{{ img_url }}"/></div>
+              <div class="content" style="background-color:#FFFACD;">
+                <div class="header">
+                  ItemName: {{name}}
+                </div>
+              </div>
+            </div>
+          </td>
+          {% for target, recommend_img_url, acc in recommends %}
+            <td data-label="Recommend">
               <div class="ui card">
-                <div class="image"><img class="ui fluid image" src="{{ recommend_img_url }}" /></div>
+                <div class="ui small image centered"><img class="ui fluid image" src="{{ recommend_img_url }}"/></div>
                 <div class="content">
                   <div class="header">
-                    ItemName: {{ recommend_img_url }}
+                    ItemName: {{target}}
                   </div>
                 </div>
               </div>
-            {% endfor %}
-            </div>
-          </div>
-        </div>
-      </div>
+            </td>
+          {% endfor %}
+        </tr>
       {% endfor %}
-    </div>
-    <!-- {{ pagination.info }} -->
-    {{ pagination.links }}
-<script type="text/javascript">
-  function cardClick(name){
-    var modalId = '#' + name;
-    console.log(modalId)
-    $(`${modalId}`).modal('show');
-  }
-</script>
+    </tbody>
+  </table>
+</div>
+<div class="ui center aligned container">
+<!-- {{ pagination.info }} -->
+{{ pagination.links }}
+</div>
 {% endblock %}

@@ -1,10 +1,10 @@
 {% extends "base.html" %}
 {% block content %}
-<h1 class="ui center aligned header" style="padding-top:1em"><span style="color:white"><em>Image Search Result</em></span></h1>
+<h1 class="ui center aligned header" style="padding-top:1em"><span style="color:black"><em>Image Search Results</em></span></h1>
 <div class="ui centered cards" style="padding:20px">
   <div class="ui card">
       {% if original_img_url %}
-      <div class="image"><img class="ui fluid image" src="{{ original_img_url }}" /></div>
+      <div class="ui small image centered"><img class="ui fluid image" src="{{ original_img_url }}" /></div>
       {% else %}
         <div>Error while uploading</div>
       {% endif %}
@@ -14,13 +14,13 @@
   </div>
 </div>
 <div class="ui horizontal divider">
-    <h2><span style="color:white"><em>Did you search?</em></span></h2>
+  <h2><span style="color:black"><em>Did you search?</em></span></h2>
 </div>
 <div class="ui centered cards" style="padding:20px">
     {% for predicted_img_url, image_name, percentage in predicted_img_data_set %}
     <div class="ui card">
         {% if predicted_img_url %}
-          <div class="image"><img class="ui fluid image" src="{{ predicted_img_url }}" /></div>
+          <div class="ui small image centered"><img class="ui fluid image" src="{{ predicted_img_url }}" /></div>
         {% else %}
           <div>Sorry, Not Found</div>
         {% endif %}
