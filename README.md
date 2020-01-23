@@ -13,46 +13,60 @@ API: Flask
 
 ```shell
 imgsearch
-|-- README.md
-|-- app
-|   |-- Dockerfile
-|   |-- app.py
-|   |-- augment_image.py
-|   |-- convertimagenumpy.py
-|   |-- etc
-|   |   `-- requirements.pip
-|   |-- predict_img.py
-|   |-- preprocess
-|   |   |-- __init__.py
-|   |   |-- __pycache__
-|   |   |   |-- __init__.cpython-36.pyc
-|   |   |   |-- cnn_model.cpython-36.pyc
-|   |   |   |-- cnn_train.cpython-36.pyc
-|   |   |   |-- gen_data.cpython-36.pyc
-|   |   |   `-- predict.cpython-36.pyc
-|   |   |-- cnn_model.py
-|   |   |-- cnn_train.py
-|   |   |-- gen_data.py
-|   |   `-- predict.py
-|   |-- settings.py
-|   |-- static
-|   |   |-- background
-|   |   |   `-- sky.png
-|   |   |-- css
-|   |   |   `-- style.css
-|   |   |-- data
-|   |   |   `-- img
-|   |   `-- uploads
-|   |-- templates
-|   |   |-- base.html
-|   |   |-- index.html
-|   |   `-- result.html
-|   |-- train_model.py
-|   `-- uwsgi.ini
-|-- docker-compose.yml
-`-- nginx
-    |-- Dockerfile
-    `-- nginx.conf
+.
+├── README.md
+├── app
+│   ├── Dockerfile
+│   ├── app.py
+│   ├── etc
+│   │   └── requirements.txt
+│   ├── predict_gen_image.py
+│   ├── predict_img.py
+│   ├── preprocess
+│   │   ├── __init__.py
+│   │   ├── cnn_generator_train.py
+│   │   ├── cnn_model.py
+│   │   ├── cnn_train.py
+│   │   ├── gen_data.py
+│   │   ├── numpycontrol.py
+│   │   └── predict.py
+│   ├── select_data.py
+│   ├── settings.py
+│   ├── static
+│   │   ├── background
+│   │   ├── css
+│   │   │   └── style.css
+│   │   ├── data
+│   │   │   └── img
+│   │   └── uploads
+│   │       ├── 4a7aba2b-a775-4595-993c-673a3eb036e7A0001609300_resized.png
+│   │       ├── 55e4108c-25da-42ad-99fd-de03ed82494dA0002269_1300_resized.png
+│   │       ├── 94eb5730-3175-43ff-a612-14c3c98f5724A0001609300_resized.png
+│   │       └── fbecf475-8465-440d-ae0f-3d4d32a6b0e0A0001609300_resized.png
+│   ├── templates
+│   │   ├── base.html
+│   │   ├── index.html
+│   │   ├── pagenation.html
+│   │   └── result.html
+│   ├── train_batch.py
+│   ├── train_gen_batch.py
+│   ├── utils
+│   │   ├── __init__.py
+│   │   └── utils.py
+│   ├── uwsgi.ini
+│   └── var
+│       ├── augmented_images
+│       ├── checkpoint
+│       ├── learning_log
+│       ├── model
+│       └── results
+├── docker-compose.yml
+└── nginx
+    ├── Dockerfile
+    └── nginx.conf
+
+21 directories, 42 files
+
 ```
 
 ## How to build model
