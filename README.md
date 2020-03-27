@@ -39,10 +39,6 @@ imgsearch
 │   │   ├── data
 │   │   │   └── img
 │   │   └── uploads
-│   │       ├── 4a7aba2b-a775-4595-993c-673a3eb036e7A0001609300_resized.png
-│   │       ├── 55e4108c-25da-42ad-99fd-de03ed82494dA0002269_1300_resized.png
-│   │       ├── 94eb5730-3175-43ff-a612-14c3c98f5724A0001609300_resized.png
-│   │       └── fbecf475-8465-440d-ae0f-3d4d32a6b0e0A0001609300_resized.png
 │   ├── templates
 │   │   ├── base.html
 │   │   ├── index.html
